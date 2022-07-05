@@ -12,6 +12,7 @@
   "author": "opeyemi famosipe <famosipe2010@gmail.com>",
   "license": "MIT",
   "dependencies": {
+    "@discordjs/form-data": "^3.0.1",
     "axios": "^0.27.2",
     "discord.js": "^13.8.1",
     "dotenv": "^16.0.1",
