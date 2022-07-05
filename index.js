@@ -3,10 +3,13 @@ const Discord = require('discord.js'); //import discord.js
 const { Client, Intents } = require('discord.js');
 const mongoose = require('mongoose');
 const database = mongoose.connection
-const mongoString = process.env.DATABASE_URL
+const mongoString = process.env.DATABASE_URL;
+const express = require('express');
+const app = express();
 const handleJobs = require("./remoteokjob-scraper");
 const Model = require('./model');
 const schedule = require('node-schedule');
+const port = 9000;
 const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES] });
 let jobs = [];
 const rule = new schedule.RecurrenceRule();
@@ -71,6 +74,10 @@ interval = setTimeout (function() {
 }, 12 * 3600 * 1000)
 handleJobs.getAllJobs()
 
+app.get('/', (req, res) => {
+    res.send("Hi, I'm Divine, I'm running fine!");
+});
+
 mongoose.connect(mongoString);
 database.on('error', (error) => {
     console.log(error)
@@ -79,4 +86,7 @@ database.on('error', (error) => {
 database.once('connected', () => {
     console.log('Database Connected');
 })
+app.listen(port, () => {
+    console.log(`Example app listening at http://localhost:${port}`);
+  });
 client.login(process.env.CLIENT_TOKEN); //login bot using token
